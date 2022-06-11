@@ -13,8 +13,8 @@ const costSchema = new Schema({
     required: true
   },
   date: {
-    type: { type: Date, default: Date.now },
-    required: true
+    type: Date,
+    default: Date.now
   },
   categoryId: {
     type: String,
@@ -24,8 +24,8 @@ const costSchema = new Schema({
     required: true
   },
   userId: {
-    type: string
+    type: String
   }
 })
 
-module.exports = mongoose.model('Cost', todoSchema)
+module.exports = mongoose.model('Cost', costSchema)
