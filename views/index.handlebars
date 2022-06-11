@@ -24,8 +24,7 @@
           </blockquote>
         </div>
         <div class="col-auto d-flex align-items-center">
-          <a class="btn btn-outline-secondary" href="./expense/{{ this._id }}">detail</a>
-          <a class="btn btn-outline-primary" href="./expense/{{ this._id }}/edit">edit</a>
+          <a class="btn btn-outline-primary mx-1" href="./expense/{{ this._id }}/edit">edit</a>
           <form action="./expense/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
             <button class="btn btn-danger" type="submit">delete</button>
           </form>
