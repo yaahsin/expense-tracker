@@ -4,6 +4,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
 const port = 3000
+const Cost = require('./models/cost')
 
 const exphbs = require('express-handlebars')
 
@@ -23,8 +24,12 @@ app.set('view engine', 'handlebars')
 
 app.use(express.urlencoded({ extended: true }))
 
+// route setting
 app.get('/', (req, res) => {
-  res.render('index')
+  Cost.find()
+    .lean()
+    .then(costs => res.render('index', { costs }))
+    .catch(error => console.error(error))
 })
 
 app.listen(port, () => {
