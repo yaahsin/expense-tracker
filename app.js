@@ -32,6 +32,19 @@ app.get('/', (req, res) => {
     .catch(error => console.error(error))
 })
 
+app.get('/costs/new', (req, res) => {
+  return res.render('new')
+})
+
+app.post('/costs', (req, res) => {
+  const { name, date, category, amount } = req.body
+  return Cost.create({
+    name, date, category, amount
+  })
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
 app.listen(port, () => {
   console.log(`Express is running on http://localhost${port}`)
 })

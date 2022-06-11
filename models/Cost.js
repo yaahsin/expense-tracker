@@ -6,7 +6,6 @@ const Schema = mongoose.Schema
 const costSchema = new Schema({
   id: {
     type: Number,
-    required: true
   },
   name: {
     type: String,
