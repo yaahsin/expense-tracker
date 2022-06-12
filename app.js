@@ -29,6 +29,7 @@ app.use(express.urlencoded({ extended: true }))
 app.get('/', (req, res) => {
   Cost.find()
     .lean()
+    .sort({ _id: 'asc' })
     .then(costs => res.render('index', { costs }))
     .catch(error => console.error(error))
 })
