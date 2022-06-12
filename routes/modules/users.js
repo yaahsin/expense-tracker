@@ -6,6 +6,7 @@ const router = express.Router()
 const Cost = require('../../models/cost')
 const User = require('../../models/user')
 const passport = require('passport')
+const bcrypt = require('bcryptjs')
 
 // 區塊2: 引入路由模組
 router.get('/login', (req, res) => {
@@ -54,18 +55,19 @@ router.post('/register', (req, res) => {
         password,
         confirmPassword
       })
-    } else {
+    }
+    return bcrypt
+      .genSalt(10)
+      .then(salt => bcrypt.hash(password, salt))
       // 如果還沒註冊：寫入資料庫
-      return User.create({
+      .then(hash => User.create({
         name,
         email,
-        password
-      })
-        .then(() => res.redirect('/'))
-        .catch(err => console.log(err))
-    }
+        password: hash // 用雜湊值取代原本的使用者密碼
+      }))
+      .then(() => res.redirect('/'))
+      .catch(err => console.log(err))
   })
-    .catch(err => console.log(err))
 })
 
 router.get('/logout', (req, res) => {
