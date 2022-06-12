@@ -1,6 +1,7 @@
 // app.js
 
 const express = require('express')
+const session = require('express-session')
 const app = express()
 const port = 3000
 const methodOverride = require('method-override')
@@ -11,6 +12,13 @@ require('./config/mongoose')
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
+
+// 優先驗證
+app.use(session({
+  secret: 'ThisIsMySecret',
+  resave: false,
+  saveUninitialized: true
+}))
 
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
