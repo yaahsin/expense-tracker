@@ -4,10 +4,10 @@ const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
 const port = 3000
-const Cost = require('./models/cost')
 const methodOverride = require('method-override')
 const exphbs = require('express-handlebars')
-const cost = require('./models/cost')
+
+const routes = require('./routes')
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
@@ -25,59 +25,9 @@ app.set('view engine', 'handlebars')
 
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
+app.use(routes)
 
-// route setting
-app.get('/', (req, res) => {
-  Cost.find()
-    .lean()
-    .sort({ _id: 'asc' })
-    .then(costs => res.render('index', { costs }))
-    .catch(error => console.error(error))
-})
-
-app.get('/costs/new', (req, res) => {
-  return res.render('new')
-})
-
-app.post('/costs', (req, res) => {
-  const { name, date, category, amount } = req.body
-  return Cost.create({
-    name, date, category, amount
-  })
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
-})
-
-app.get('/costs/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Cost.findById(id)
-    .lean()
-    .then(cost => res.render('edit', { cost }))
-    .catch(error => console.log(error))
-})
-
-app.put('/costs/:id', (req, res) => {
-  const id = req.params.id
-  const { name, date, category, amount } = req.body
-  return Cost.findById(id)
-    .then(cost => {
-      cost.name = name
-      cost.date = date
-      cost.category = category
-      cost.amount = amount
-      return cost.save()
-    })
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
-})
-
-app.delete('/costs/:id', (req, res) => {
-  const id = req.params.id
-  return Cost.findById(id)
-    .then(cost => cost.remove())
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
-})
+// route setting 重構至routes裡面
 
 app.listen(port, () => {
   console.log(`Express is running on http://localhost${port}`)
