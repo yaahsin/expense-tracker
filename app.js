@@ -3,11 +3,13 @@
 const express = require('express')
 const session = require('express-session')
 const app = express()
-const port = 3000
 const methodOverride = require('method-override')
 const exphbs = require('express-handlebars')
 const routes = require('./routes')
 const flash = require('connect-flash')
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 
 const usePassport = require('./config/passport')
 
@@ -18,7 +20,7 @@ app.set('view engine', 'handlebars')
 
 // 優先驗證
 app.use(session({
-  secret: 'ThisIsMySecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
@@ -47,6 +49,6 @@ app.use(routes)
 
 // route setting 重構至routes裡面
 
-app.listen(port, () => {
-  console.log(`Express is running on http://localhost${port}`)
+app.listen(process.env.port, () => {
+  console.log(`Express is running on http://localhost${process.env.port}`)
 })
