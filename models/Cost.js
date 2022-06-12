@@ -5,15 +5,14 @@ const Schema = mongoose.Schema
 
 const costSchema = new Schema({
   id: {
-    type: Number,
+    type: Number
   },
   name: {
     type: String,
     required: true
   },
   date: {
-    type: Date,
-    default: Date.now
+    type: Date
   },
   categoryId: {
     type: String,

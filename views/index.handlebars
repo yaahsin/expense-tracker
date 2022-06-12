@@ -23,8 +23,8 @@
         </div>
         <div class="col-auto d-flex align-items-center">
           <p class="mx-5">{{ this.amount }}</p>
-          <a class="btn btn-outline-primary mx-1" href="./expense/{{ this._id }}/edit">edit</a>
-          <form action="./expense/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
+          <a class="btn btn-outline-primary mx-1" href="./costs/{{ this._id }}/edit">edit</a>
+          <form action="./costs/{{ this._id }}/delete" method="POST" style="display: inline;">
             <button class="btn btn-danger" type="submit">delete</button>
           </form>
         </div>

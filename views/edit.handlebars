@@ -1,0 +1,36 @@
+{{!-- views/edit.handlebars --}}
+
+<div class="container my-5 p-3" style="border: 1px solid grey; border-radius: 5px; box-shadow: 2px 2px 10px grey;">
+  <div class="d-flex justify-content-center mt-2">
+    <a>*必填欄位</a>
+    <h3 class="mx-3">請輸入你的支出</h3>
+  </div>
+
+  <form action="/costs/{{ cost._id }}/edit" method="POST" class="row g-3 d-flex justify-content-center">
+    <div class="col-7">
+      <label for="name" class="form-label">名稱*</label>
+      <input type="text" class="form-control" id="name" name="name" value={{ cost.name }} required>
+    </div>
+    <div class="col-7">
+      <label for="date" class="form-label">日期*</label>
+      <input type="date" class="form-control" id="date" name="date" value={{cost.date}} required> {{cost.date}}
+    </div>
+    <div class="col-md-7">
+      <label for="category" class="form-label">類別*</label>
+      <select class="form-select" id="category" name="category" value={{ cost.category }} required>
+        <option>家居物業</option>
+        <option>交通出行</option>
+        <option>休閒娛樂</option>
+        <option>餐飲食品</option>
+        <option>其它</option>
+      </select>
+    </div>
+    <div class="col-md-7">
+      <label for="number" class="form-label">金額*</label>
+      <input type="number" class="form-control" id="number" min="0" name="amount" value={{ cost.amount }} required />
+    </div>
+    <div class="col-7 d-grid">
+      <button type="submit" class="btn btn-primary">儲存</button>
+    </div>
+  </form>
+</div>

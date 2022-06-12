@@ -7,6 +7,7 @@ const port = 3000
 const Cost = require('./models/cost')
 
 const exphbs = require('express-handlebars')
+const cost = require('./models/cost')
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
@@ -41,6 +42,37 @@ app.post('/costs', (req, res) => {
   return Cost.create({
     name, date, category, amount
   })
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
+app.get('/costs/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Cost.findById(id)
+    .lean()
+    .then(cost => res.render('edit', { cost }))
+    .catch(error => console.log(error))
+})
+
+app.post('/costs/:id/edit', (req, res) => {
+  const id = req.params.id
+  const { name, date, category, amount } = req.body
+  return Cost.findById(id)
+    .then(cost => {
+      cost.name = name
+      cost.date = date
+      cost.category = category
+      cost.amount = amount
+      return cost.save()
+    })
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
+app.post('/costs/:id/delete', (req, res) => {
+  const id = req.params.id
+  return Cost.findById(id)
+    .then(cost => cost.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
