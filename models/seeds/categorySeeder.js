@@ -2,12 +2,11 @@
 
 const db = require('../../config/mongoose')
 const Category = require('../category')
-const initialCost = require('../initialCost.json')
-
+const initialCategory = require('../initialCategory.json')
 
 // 取得資料庫連線狀態
 db.once('open', () => {
   console.log('creating seed')
-  Category.create(initialCost)
+  Category.create(initialCategory)
   console.log('done')
 })

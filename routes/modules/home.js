@@ -7,7 +7,8 @@ const Cost = require('../../models/cost')
 
 // 區塊2: 引入路由模組
 router.get('/', (req, res) => {
-  Cost.find()
+  const userId = req.user._id
+  Cost.find({ userId })
     .lean()
     .sort({ _id: 'asc' })
     .then(costs => res.render('index', { costs }))

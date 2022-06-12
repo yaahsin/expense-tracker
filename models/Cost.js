@@ -14,15 +14,20 @@ const costSchema = new Schema({
   date: {
     type: Date
   },
-  categoryId: {
-    type: String,
-  },
   amount: {
     type: Number,
     required: true
   },
-  userId: {
-    type: String
+  userId: {  // 加入關聯設定
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    index: true,
+    required: true
+  },
+  categoryId: {  // 加入關聯設定
+    type: Schema.Types.ObjectId,
+    ref: 'Category',
+    index: true,
   }
 })
 

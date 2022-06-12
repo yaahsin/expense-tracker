@@ -4,6 +4,7 @@
 const express = require('express')
 const router = express.Router()
 const Cost = require('../../models/cost')
+const Category = require('../../models/category')
 
 // 區塊2: 引入路由模組
 router.get('/new', (req, res) => {
@@ -11,40 +12,51 @@ router.get('/new', (req, res) => {
 })
 
 router.post('', (req, res) => {
+  const userId = req.user._id
   const { name, date, category, amount } = req.body
-  return Cost.create({
-    name, date, category, amount
-  })
+  Category.findOne({ name: category })
+    .lean()
+    .then(category => {
+      Cost.create({
+        name, date, amount, userId, categoryId: category._id
+      })
+    })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
 
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Cost.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  return Cost.findOne({ _id, userId })
     .lean()
     .then(cost => res.render('edit', { cost }))
     .catch(error => console.log(error))
 })
 
 router.put('/:id', (req, res) => {
-  const id = req.params.id
+  const userId = req.user._id
+  const _id = req.params.id
   const { name, date, category, amount } = req.body
-  return Cost.findById(id)
-    .then(cost => {
-      cost.name = name
-      cost.date = date
-      cost.category = category
-      cost.amount = amount
-      return cost.save()
+  return Category.findOne({ name: category })
+    .lean()
+    .then(category => {
+      return Cost.findOneAndUpdate({ _id, userId }
+        , {
+          name: name,
+          date: date,
+          category: category._id,
+          amount: amount
+        })
+        .then(() => res.redirect('/'))
+        .catch(error => console.log(error))
     })
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
 })
 
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
-  return Cost.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  return Cost.findOne({ _id, userId })
     .then(cost => cost.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
