@@ -10,7 +10,12 @@ module.exports = app => {
   app.use(passport.initialize())
   app.use(passport.session())
   // 設定本地登入策略
-  passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+  // 1. 調整名詞
+  passport.use(new LocalStrategy({
+    usernameField: 'email'
+  },
+  // 2. 操作行為 done為內建的功能, done(程式null or err, 回傳值)
+   (email, password, done) => {
     User.findOne({ email })
       .then(user => {
         if (!user) {
