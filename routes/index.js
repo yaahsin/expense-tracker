@@ -9,9 +9,11 @@ const home = require('./modules/home')
 const costs = require('./modules/costs')
 const users = require('./modules/users')
 
-router.use('/', home)
-router.use('/costs', costs)
+const { authenticator } = require('../middleware/auth')
+
+router.use('/costs', authenticator, costs)
 router.use('/users', users)
+router.use('/', authenticator, home)
 
 
 // 區塊3: 匯出路由器
