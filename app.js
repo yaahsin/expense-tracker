@@ -26,6 +26,14 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 // 有passport 路由才能比對, 所以要先放
 usePassport(app)
+
+// 收集req狀態來調整頁面顯示內容
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
+  next()
+})
+
 app.use(routes)
 
 // route setting 重構至routes裡面
