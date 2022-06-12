@@ -5,14 +5,17 @@ const express = require('express')
 const router = express.Router()
 const Cost = require('../../models/cost')
 const User = require('../../models/user')
+const passport = require('passport')
 
 // 區塊2: 引入路由模組
 router.get('/login', (req, res) => {
   res.render('login')
 })
 
-router.post('/login', (req, res) => {
-})
+router.post('/login', passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/users/login'
+}))
 
 router.get('/register', (req, res) => {
   res.render('register')

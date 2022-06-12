@@ -6,8 +6,10 @@ const app = express()
 const port = 3000
 const methodOverride = require('method-override')
 const exphbs = require('express-handlebars')
-
 const routes = require('./routes')
+
+const usePassport = require('./config/passport')
+
 require('./config/mongoose')
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
@@ -22,6 +24,8 @@ app.use(session({
 
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
+// 有passport 路由才能比對, 所以要先放
+usePassport(app)
 app.use(routes)
 
 // route setting 重構至routes裡面
