@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const app = express()
 const port = 3000
 const Cost = require('./models/cost')
-
+const methodOverride = require('method-override')
 const exphbs = require('express-handlebars')
 const cost = require('./models/cost')
 
@@ -24,6 +24,7 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
 app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
 // route setting
 app.get('/', (req, res) => {
@@ -55,7 +56,7 @@ app.get('/costs/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/costs/:id/edit', (req, res) => {
+app.put('/costs/:id', (req, res) => {
   const id = req.params.id
   const { name, date, category, amount } = req.body
   return Cost.findById(id)
@@ -70,7 +71,7 @@ app.post('/costs/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/costs/:id/delete', (req, res) => {
+app.delete('/costs/:id', (req, res) => {
   const id = req.params.id
   return Cost.findById(id)
     .then(cost => cost.remove())

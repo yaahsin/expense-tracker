@@ -6,7 +6,7 @@
     <h3 class="mx-3">請輸入你的支出</h3>
   </div>
 
-  <form action="/costs/{{ cost._id }}/edit" method="POST" class="row g-3 d-flex justify-content-center">
+  <form action="/costs/{{ cost._id }}?_method=PUT" method="POST" class="row g-3 d-flex justify-content-center">
     <div class="col-7">
       <label for="name" class="form-label">名稱*</label>
       <input type="text" class="form-control" id="name" name="name" value={{ cost.name }} required>
