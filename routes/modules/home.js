@@ -24,5 +24,26 @@ router.get('/', (req, res) => {
     .catch(error => console.error(error))
 })
 
+// 空陣列會crash
+router.post('/', (req, res) => {
+  const category = req.body.costCategory
+  const userId = req.user._id
+  console.log(category)
+  Cost.find({ category })
+    .lean()
+    .then(costs => {
+      if (costs.length === 0) {
+        req.flash('warning_msg', `類別：「${category}」 無資料`)
+        return res.redirect('/')
+      }
+      costs.forEach(cost => cost.date = cost.date.toJSON().slice(0, 10))
+      const Total = costs.map(cost => cost.amount).reduce((accumulator, currentValue) => {
+        return accumulator + currentValue;
+      })
+      costs.Total = Total
+      res.render('index', { costs })
+    })
+})
+
 // 區塊3: 匯出路由器
 module.exports = router
