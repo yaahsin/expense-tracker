@@ -18,7 +18,7 @@ router.post('', (req, res) => {
     .lean()
     .then(category => {
       Cost.create({
-        name, date, amount, userId, categoryId: category._id
+        name, date, amount, userId, category: category.name, categoryId: category._id, icon: category.icon
       })
     })
     .then(() => res.redirect('/'))

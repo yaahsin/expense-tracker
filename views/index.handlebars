@@ -18,8 +18,9 @@
     {{#each costs}}
     <li class="list-group-item">
       <div class="row">
-        <div class="col-auto me-auto">
-          <p class="mb-0">{{this.name}}</p>
+        <div class="col-auto d-flex me-auto align-items-center" style:"color: blue;">
+          <i class="{{this.icon}} mx-1" style="color: rgb(134, 134, 200);"> </i>
+          <p class="mb-0 ml-1">{{this.name}}</p>
         </div>
         <div class="col-auto d-flex align-items-center">
           <p class="mx-5">{{ this.amount }}</p>

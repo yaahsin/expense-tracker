@@ -24,11 +24,24 @@ const costSchema = new Schema({
     index: true,
     required: true
   },
+  category: {
+    type: Schema.Types.String,
+    ref: 'Category',
+    index: true,
+    required: true
+  },
   categoryId: {  // 加入關聯設定
     type: Schema.Types.ObjectId,
     ref: 'Category',
     index: true,
-  }
+    required: true
+  },
+  icon: {  // 加入關聯設定
+    type: Schema.Types.String,
+    ref: 'Category',
+    index: true,
+    required: true
+  },
 })
 
 module.exports = mongoose.model('Cost', costSchema)

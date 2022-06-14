@@ -49,7 +49,9 @@ db.once('open', () => {
                 date: cost.date,
                 amount: cost.amount,
                 userId: user._id,
-                categoryId: category._id
+                category: cost.category,
+                categoryId: category._id,
+                icon: category.icon
               })
             })
         })

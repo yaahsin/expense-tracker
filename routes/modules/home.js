@@ -4,16 +4,7 @@
 const express = require('express')
 const router = express.Router()
 const Cost = require('../../models/cost')
-const Category = require('../../model/category')
-
-// category icon
-const CATEGORY = {
-  家居物業: "https://fontawesome.com/icons/home?style=solid",
-  交通出行: "https://fontawesome.com/icons/shuttle-van?style=solid",
-  休閒娛樂: "https://fontawesome.com/icons/grin-beam?style=solid",
-  餐飲食品: "https://fontawesome.com/icons/utensils?style=solid",
-  其他: "https://fontawesome.com/icons/pen?style=solid"
-}
+const Category = require('../../models/category')
 
 // 區塊2: 引入路由模組
 router.get('/', (req, res) => {
@@ -21,7 +12,10 @@ router.get('/', (req, res) => {
   Cost.find({ userId })
     .lean()
     .sort({ _id: 'asc' })
-    .then(costs => res.render('index', { costs }))
+    .then(costs => {
+      console.log(costs)
+      res.render('index', { costs })
+    })
     .catch(error => console.error(error))
 })
 
