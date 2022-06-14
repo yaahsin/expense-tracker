@@ -1,18 +1,20 @@
 <!-- views/index.handlebars -->
 <div class="container my-5 p-3" style="border: 1px solid grey; border-radius: 5px; box-shadow: 2px 2px 10px grey;">
   <div class="d-grid gap-2 mt-2">
-    <select class="form-select" aria-label="Default select example">
-      <option selected>類別選單</option>
-      <option value="1">家居物業</option>
-      <option value="2">交通出行</option>
-      <option value="3">休閒娛樂</option>
-      <option value="3">餐飲食品</option>
-      <option value="3">其它</option>
-    </select>
+    <form action="/" method="POST">
+      <select class="form-select" aria-label="Default select example" name="costCategory">
+        <option selected>類別選單</option>
+        <option value="家居物業">家居物業</option>
+        <option value="交通出行">交通出行</option>
+        <option value="休閒娛樂">休閒娛樂</option>
+        <option value="餐飲食品">餐飲食品</option>
+        <option value="其它">其它</option>
+      </select>
+    </form>
   </div>
 
-  <p class="my-1">總金額：</p>
-  <p class="fs-1">{{ total }}總金額放這裡</p>
+  <p class="my-2">總金額：</p>
+  <p class="fw-bold text-end mx-2" style="font-size:46px; color:#EC6840;">{{costs.Total}}</p>
 
   <ul class="list-group">
     {{#each costs}}

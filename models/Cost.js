@@ -12,7 +12,8 @@ const costSchema = new Schema({
     required: true
   },
   date: {
-    type: Date
+    type: Date,
+    required: true
   },
   amount: {
     type: Number,

@@ -9,11 +9,16 @@ const Category = require('../../models/category')
 // 區塊2: 引入路由模組
 router.get('/', (req, res) => {
   const userId = req.user._id
+
   Cost.find({ userId })
     .lean()
     .sort({ _id: 'asc' })
     .then(costs => {
-      console.log(costs)
+      costs.forEach(cost => cost.date = cost.date.toJSON().slice(0, 10))
+      const Total = costs.map(cost => cost.amount).reduce((accumulator, currentValue) => {
+        return accumulator + currentValue;
+      })
+      costs.Total = Total
       res.render('index', { costs })
     })
     .catch(error => console.error(error))

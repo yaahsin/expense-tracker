@@ -14,6 +14,7 @@ router.get('/new', (req, res) => {
 router.post('', (req, res) => {
   const userId = req.user._id
   const { name, date, category, amount } = req.body
+  console.log(date)
   Category.findOne({ name: category })
     .lean()
     .then(category => {
@@ -30,7 +31,12 @@ router.get('/:id/edit', (req, res) => {
   const _id = req.params.id
   return Cost.findOne({ _id, userId })
     .lean()
-    .then(cost => res.render('edit', { cost }))
+    .then(cost => {
+      const justDate = cost.date.toJSON().slice(0, 10)
+      cost.justDate = justDate
+      res.render('edit', { cost })
+    }
+    )
     .catch(error => console.log(error))
 })
 
