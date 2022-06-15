@@ -49,6 +49,6 @@ app.use(routes)
 
 // route setting 重構至routes裡面
 
-app.listen(process.env.port, () => {
-  console.log(`Express is running on http://localhost${process.env.port}`)
+app.listen(process.env.PORT, () => {
+  console.log(`Express is running on http://localhost${process.env.PORT}`)
 })
