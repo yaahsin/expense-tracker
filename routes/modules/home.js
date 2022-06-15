@@ -15,10 +15,15 @@ router.get('/', (req, res) => {
     .sort({ _id: 'asc' })
     .then(costs => {
       costs.forEach(cost => cost.date = cost.date.toJSON().slice(0, 10))
-      const Total = costs.map(cost => cost.amount).reduce((accumulator, currentValue) => {
-        return accumulator + currentValue;
-      })
-      costs.Total = Total
+      if (costs.length === 0) {
+        const Total = 0
+        costs.Total = Total
+      } else {
+        const Total = costs.map(cost => cost.amount).reduce((accumulator, currentValue) => {
+          return accumulator + currentValue;
+        })
+        costs.Total = Total
+      }
       res.render('index', { costs })
     })
     .catch(error => console.error(error))
@@ -28,8 +33,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const category = req.body.costCategory
   const userId = req.user._id
-  console.log(category)
-  Cost.find({ category })
+  Cost.find({ userId, category })
     .lean()
     .then(costs => {
       if (costs.length === 0) {

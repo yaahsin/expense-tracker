@@ -15,7 +15,7 @@
   <div class=" my-3 ">{{> message}}</div>
 
   <p class="my-2">總金額：</p>
-  <p class="fw-bold text-end mx-2" style="font-size:46px; color:#EC6840;">{{costs.Total}}</p>
+  <p class="fw-bold text-end mx-2" style="font-size:46px; color:#EC6840;">$ {{costs.Total}} 元</p>
 
   <ul class="list-group">
     {{#each costs}}
@@ -26,7 +26,7 @@
           <p class="mb-0 ml-1">{{this.name}}</p>
         </div>
         <div class="col-auto d-flex align-items-center">
-          <p class="mx-5">{{ this.amount }}</p>
+          <p class="mx-5">$ {{ this.amount }}元</p>
           <a class="btn btn-outline-primary mx-1" href="./costs/{{ this._id }}/edit">edit</a>
           <form action="./costs/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
             <button class="btn btn-danger" type="submit">delete</button>

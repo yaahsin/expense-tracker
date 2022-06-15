@@ -40,7 +40,7 @@ db.once('open', () => {
       }))
 
       .then(user => {
-        return initialCost.forEach((cost) => {
+        return Promise.all(Array.from(initialCost, cost => {
           return Category.findOne({ name: cost.category })
             .lean()
             .then(category => {
@@ -55,10 +55,12 @@ db.once('open', () => {
               })
             })
         })
+        )
       })
   }))
     .then(() => {
       console.log('done.')
+      process.exit()
     })
 })
 

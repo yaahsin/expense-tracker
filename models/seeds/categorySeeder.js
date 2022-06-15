@@ -9,6 +9,9 @@ const initialCategory = require('../initialCategory.json')
 // 取得資料庫連線狀態
 db.once('open', () => {
   console.log('creating category seed')
-  Category.create(initialCategory)
-  console.log('done')
+  Promise.all(Array.from(initialCategory, category => Category.create(category)))
+    .then(() => {
+      console.log('done')
+      process.exit()
+    })
 })
