@@ -3,8 +3,8 @@
 // 區塊1: 引用 Express 與 Express 路由器
 const express = require('express')
 const router = express.Router()
-const Cost = require('../../models/cost')
-const Category = require('../../models/category')
+const Cost = require('../../models/Cost')
+const Category = require('../../models/Category')
 
 // 區塊2: 引入路由模組
 router.get('/new', (req, res) => {
