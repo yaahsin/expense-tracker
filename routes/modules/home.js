@@ -17,13 +17,13 @@ router.get('/', (req, res) => {
       // 刪去時間，並寫入總計金額
       costs.forEach(cost => cost.date = cost.date.toJSON().slice(0, 10))
       if (costs.length === 0) {
-        const Total = 0
-        costs.Total = Total
+        const totalAmount = 0
+        costs.totalAmount = totalAmount
       } else {
-        const Total = costs.map(cost => cost.amount).reduce((accumulator, currentValue) => {
+        const totalAmount = costs.map(cost => cost.amount).reduce((accumulator, currentValue) => {
           return accumulator + currentValue;
         })
-        costs.Total = Total
+        costs.totalAmount = totalAmount
       }
       res.render('index', { costs })
     })
