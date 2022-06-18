@@ -3,8 +3,7 @@
 // 區塊1: 引用 Express 與 Express 路由器
 const express = require('express')
 const router = express.Router()
-const Cost = require('../../models/cost')
-const User = require('../../models/category')
+const User = require('../../models/user')
 const passport = require('passport')
 const bcrypt = require('bcryptjs')
 
@@ -47,9 +46,9 @@ router.post('/register', (req, res) => {
   User.findOne({ email }).then(user => {
     // 如果已經註冊：退回原本畫面
     if (user) {
-      errors.push({ message: '這個 Email 已經註冊過了。' }) //內容無法顯示在樣板
-      console.log(errors)
+      errors.push({ message: '這個 Email 已經註冊過了。' })
       return res.render('register', {
+        errors,
         name,
         email,
         password,

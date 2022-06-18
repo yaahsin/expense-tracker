@@ -1,5 +1,6 @@
 <!-- views/index.handlebars -->
-<div class="container my-5 p-3" style="border: 1px solid grey; border-radius: 5px; box-shadow: 2px 2px 10px grey;">
+<div class="container my-5 p-3"
+  style="background-color:#EBEBE3; border: 1px solid grey; border-radius: 5px; box-shadow: 2px 2px 10px grey;">
   <div class="d-grid gap-2 mt-2">
     <form action="/" method="POST">
       <select name="costCategory" class="form-select" aria-label="Default select example" onchange="this.form.submit()">
@@ -14,8 +15,8 @@
   </div>
   <div class=" my-3 ">{{> message}}</div>
 
-  <p class="my-2">總金額：</p>
-  <p class="fw-bold text-end mx-2" style="font-size:46px; color:#EC6840;">$ {{costs.Total}} 元</p>
+  <p class="my-2">{{#if category}} {{category}} {{/if}}總金額：</p>
+  <p class="fw-bold text-end mx-2" style="font-size:46px; color:#CE8467;">$ {{costs.Total}} 元</p>
 
   <ul class="list-group">
     {{#each costs}}

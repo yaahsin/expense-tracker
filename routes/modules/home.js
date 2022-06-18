@@ -12,8 +12,9 @@ router.get('/', (req, res) => {
 
   Cost.find({ userId })
     .lean()
-    .sort({ _id: 'asc' })
+    .sort({ date: 'asc' })
     .then(costs => {
+      // 刪去時間，並寫入總計金額
       costs.forEach(cost => cost.date = cost.date.toJSON().slice(0, 10))
       if (costs.length === 0) {
         const Total = 0
@@ -35,16 +36,18 @@ router.post('/', (req, res) => {
   Cost.find({ userId, category })
     .lean()
     .then(costs => {
+      // 如果類別內無資料
       if (costs.length === 0) {
         req.flash('warning_msg', `類別：「${category}」 無資料`)
         return res.redirect('/')
       }
+      // 如果類別內有資料
       costs.forEach(cost => cost.date = cost.date.toJSON().slice(0, 10))
       const Total = costs.map(cost => cost.amount).reduce((accumulator, currentValue) => {
         return accumulator + currentValue;
       })
       costs.Total = Total
-      res.render('index', { costs })
+      res.render('index', { costs, category })
     })
 })
 
