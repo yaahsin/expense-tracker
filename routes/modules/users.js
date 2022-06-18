@@ -3,8 +3,8 @@
 // 區塊1: 引用 Express 與 Express 路由器
 const express = require('express')
 const router = express.Router()
-const Cost = require('../../models/Cost')
-const User = require('../../models/User')
+const Cost = require('../../models/cost')
+const User = require('../../models/category')
 const passport = require('passport')
 const bcrypt = require('bcryptjs')
 
