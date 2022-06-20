@@ -14,7 +14,6 @@ router.get('/new', (req, res) => {
 router.post('', (req, res) => {
   const userId = req.user._id
   const { name, date, category, amount } = req.body
-  console.log(date)
   Category.findOne({ name: category })
     .lean()
     .then(category => {
@@ -51,8 +50,10 @@ router.put('/:id', (req, res) => {
         , {
           name: name,
           date: date,
-          category: category._id,
-          amount: amount
+          category: category.name,
+          categoryId: category._id,
+          amount: amount,
+          icon: category.icon
         })
         .then(() => res.redirect('/'))
         .catch(error => console.log(error))

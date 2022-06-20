@@ -36,6 +36,7 @@ git clone https://github.com/yaahsin/Restaurant_page.git
 - Node.js v16.14.2
 - express v4.16.4
 - express-handlebars v3.0.0
+- handlebars-helpers v0.10.0
 - express-session v1.17.1
 - bcryptjs v2.4.3
 - connect-flash v0.1.1

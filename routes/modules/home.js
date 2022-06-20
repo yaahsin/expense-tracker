@@ -4,7 +4,6 @@
 const express = require('express')
 const router = express.Router()
 const Cost = require('../../models/cost')
-const Category = require('../../models/category')
 
 // 區塊2: 引入路由模組
 router.get('/', (req, res) => {
@@ -43,10 +42,10 @@ router.post('/', (req, res) => {
       }
       // 如果類別內有資料
       costs.forEach(cost => cost.date = cost.date.toJSON().slice(0, 10))
-      const Total = costs.map(cost => cost.amount).reduce((accumulator, currentValue) => {
+      const totalAmount = costs.map(cost => cost.amount).reduce((accumulator, currentValue) => {
         return accumulator + currentValue;
       })
-      costs.Total = Total
+      costs.totalAmount = totalAmount
       res.render('index', { costs, category })
     })
 })

@@ -7,6 +7,8 @@ const methodOverride = require('method-override')
 const exphbs = require('express-handlebars')
 const routes = require('./routes')
 const flash = require('connect-flash')
+const helpers = require('handlebars-helpers')
+const multihelpers = helpers()
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
@@ -15,7 +17,7 @@ const usePassport = require('./config/passport')
 
 require('./config/mongoose')
 
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
+app.engine('handlebars', exphbs({ helpers: multihelpers, defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
 // 優先驗證
